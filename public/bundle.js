@@ -25550,14 +25550,14 @@
 	                    React.createElement(
 	                        'li',
 	                        { className: 'menu-text' },
-	                        'React Time App'
+	                        'React Timer App'
 	                    ),
 	                    React.createElement(
 	                        'li',
 	                        null,
 	                        React.createElement(
 	                            IndexLink,
-	                            { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                            { to: '/', activeClassName: 'active-link', activeStyle: { fontWeight: 'bold' } },
 	                            'Timer'
 	                        )
 	                    ),
@@ -25566,7 +25566,7 @@
 	                        null,
 	                        React.createElement(
 	                            Link,
-	                            { to: '/countdown', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	                            { to: '/countdown', activeClassName: 'active-link', activeStyle: { fontWeight: 'bold' } },
 	                            'Countdown'
 	                        )
 	                    )
@@ -25975,7 +25975,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".page-title {\n  margin-top: 2.5rem;\n  margin-bottom: 2.5rem;\n  color: #555; }\n\ninput[type=search] {\n  box-shadow: none; }\n\np {\n  color: blue; }\n", ""]);
+	exports.push([module.id, ".top-bar, .top-bar ul {\n  background: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n", ""]);
 	
 	// exports
 
