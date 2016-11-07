@@ -8,54 +8,51 @@ var CountDown = React.createClass({
     timer:undefined,
     getInitialState:function(){
         return {
-           count:0
+           count:0,
+           countdownStatus: 'stopped'
         }
         
     },
-    createSeconds:function(){
+    
+    startTimer:function(){
+        this.timer = setInterval(() => {
+            debugger;
+            var newCount = this.state.count -1 ;
+            this.setState({
+                count:newCount >= 0 ? newCount : 0
+            });
 
-        
-        var that = this;
-
-        var count=this.state.count;
-      
-        console.log('count is:'+count);
-        this.timer = setInterval(function(){
-            
-            var date = new Date();
-               
-            //console.log('running....'+seconds);
-            that.setState({count:count--});
         },1000);
+    },
+    componentDidUpdate:function(prevProps,prevState){
+       console.log('Component did render and there was a state or prop change');
+       if(this.state.countdownStatus != prevState.countdownStatus){
+           switch(this.state.countdownStatus){
+             case 'started':
+                this.startTimer();
+                break;
 
+           }
+       }
     },
-    start:function(){
-        console.log('starting in Counting Down..');
-        if(! this.timer)
-           this.createSeconds();
-    },
-    reset:function(){
-       clearInterval(this.timer);
-       this.createSeconds();
-    },
-    componentDidMount:function(){
-       
-
-        //this.createSeconds();
-    },
-
-    handleSetCountdown:function(timeInseconds){
-        debugger;
+    handleSetCountdown:function (timeInseconds){
+        
         console.log('seconds in handleSetCountdown is:'+timeInseconds);
-        this.setState({count:timeInseconds});
+        this.setState({
+            count: timeInseconds,
+            countdownStatus: 'started'
+        });
 
+        //state has yet to change .
         console.log('count is now :'+this.state.count);
 
-        //this.createSeconds();
+        
 
     },
 
     render:function(){
+
+        console.log('Rendering on component state change or page load ');
 
         //destructering
         var {count} = this.state;
