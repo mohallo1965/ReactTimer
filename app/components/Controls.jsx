@@ -6,14 +6,14 @@ var Controls = React.createClass({
 
            console.log('Starting timer');
 
-           this.props.startTimer();
+           //this.props.startTimer();
             
        },
        reset:function(){
 
            console.log('Resetting timer');
            
-           this.props.resetTimer();
+           //this.props.resetTimer();
 
             
        },

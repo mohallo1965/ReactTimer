@@ -25499,18 +25499,13 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(Nav, null),
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'row' },
 	        React.createElement(
 	          'div',
-	          null,
-	          React.createElement(Nav, null),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Main.jsx Rendered'
-	          ),
+	          { className: 'column small-centered medium-6 large-4' },
 	          this.props.children
 	        )
 	      )
@@ -25600,7 +25595,8 @@
 	
 	var React = __webpack_require__(8);
 	var Clock = __webpack_require__(232);
-	var Controls = __webpack_require__(233);
+	
+	var CountdownForm = __webpack_require__(233);
 	
 	var CountDown = React.createClass({
 	    displayName: 'CountDown',
@@ -25609,20 +25605,22 @@
 	    timer: undefined,
 	    getInitialState: function getInitialState() {
 	        return {
-	            totalSeconds: 0
+	            count: 0
 	        };
 	    },
 	    createSeconds: function createSeconds() {
 	
 	        var that = this;
 	
-	        var seconds = 0;
-	        that.timer = setInterval(function () {
+	        var count = this.state.count;
+	
+	        console.log('count is:' + count);
+	        this.timer = setInterval(function () {
 	
 	            var date = new Date();
 	
 	            //console.log('running....'+seconds);
-	            that.setState({ totalSeconds: seconds++ });
+	            that.setState({ count: count-- });
 	        }, 1000);
 	    },
 	    start: function start() {
@@ -25634,19 +25632,31 @@
 	        this.createSeconds();
 	    },
 	    componentDidMount: function componentDidMount() {
-	        console.log('CountDown component did mount');
-	        console.log('CountDown seconds are:' + this.state.totalSeconds);
+	
+	        //this.createSeconds();
+	    },
+	
+	    handleSetCountdown: function handleSetCountdown(timeInseconds) {
+	        debugger;
+	        console.log('seconds in handleSetCountdown is:' + timeInseconds);
+	        this.setState({ count: timeInseconds });
+	
+	        console.log('count is now :' + this.state.count);
 	
 	        //this.createSeconds();
 	    },
 	
 	    render: function render() {
 	
+	        //destructering
+	        var count = this.state.count;
+	
+	
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(Clock, { totalSeconds: this.state.totalSeconds }),
-	            React.createElement(Controls, { startTimer: this.start, resetTimer: this.reset })
+	            React.createElement(Clock, { totalSeconds: count }),
+	            React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown })
 	        );
 	    }
 	
@@ -25709,50 +25719,45 @@
 /* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var React = __webpack_require__(8);
 	
-	var Controls = React.createClass({
-	           displayName: 'Controls',
+	var CountDownForm = React.createClass({
+	      displayName: "CountDownForm",
 	
 	
-	           start: function start() {
+	      onSubmit: function onSubmit(e) {
+	            e.preventDefault();
 	
-	                      console.log('Starting timer');
+	            var strSeconds = this.refs.seconds.value;
 	
-	                      this.props.startTimer();
-	           },
-	           reset: function reset() {
+	            if (strSeconds.match(/^[0-9]*$/)) {
+	                  this.refs.seconds.value;
+	                  this.props.onSetCountdown(parseInt(strSeconds, 10));
+	            }
+	      },
+	      render: function render() {
 	
-	                      console.log('Resetting timer');
+	            return React.createElement(
+	                  "div",
+	                  null,
+	                  React.createElement(
+	                        "form",
+	                        { ref: "form", onSubmit: this.onSubmit, className: "countdown-form" },
+	                        React.createElement("input", { type: "text", ref: "seconds", placeholder: "Enter time in seconds" }),
+	                        React.createElement(
+	                              "button",
+	                              { className: "button expanded" },
+	                              "Start"
+	                        )
+	                  )
+	            );
+	      }
 	
-	                      this.props.resetTimer();
-	           },
-	           render: function render() {
-	
-	                      return React.createElement(
-	                                 'div',
-	                                 null,
-	                                 React.createElement(
-	                                            'span',
-	                                            null,
-	                                            React.createElement(
-	                                                       'button',
-	                                                       { onClick: this.start },
-	                                                       'Start'
-	                                            ),
-	                                            React.createElement(
-	                                                       'button',
-	                                                       { onClick: this.reset },
-	                                                       'Reset'
-	                                            )
-	                                 )
-	                      );
-	           }
 	});
 	
-	module.exports = Controls;
+	module.exports = CountDownForm;
 
 /***/ },
 /* 234 */
