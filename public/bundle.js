@@ -25614,11 +25614,16 @@
 	        var _this = this;
 	
 	        this.timer = setInterval(function () {
-	            debugger;
+	
 	            var newCount = _this.state.count - 1;
 	            _this.setState({
 	                count: newCount >= 0 ? newCount : 0
 	            });
+	
+	            //when it get to 0 the CountDown form will be shown again.
+	            if (newCount == 0) {
+	                _this.setState({ countdownStatus: 'stopped' });
+	            }
 	        }, 1000);
 	    },
 	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
@@ -25636,6 +25641,19 @@
 	                    break;
 	            }
 	        }
+	    },
+	
+	    componentWillUpdate: function componentWillUpdate(nexProps, nextState) {},
+	    componentWillUnmount: function componentWillUnmount() {
+	        console.log('component did unmount');
+	        clearInterval(this.timer);
+	        this.timer = undefined;
+	    },
+	    componentWillMount: function componentWillMount() {
+	        console.log('Component will Mount');
+	    },
+	    componentDidMount: function componentDidMount() {
+	        console.log('Component Did mount');
 	    },
 	    handleSetCountdown: function handleSetCountdown(timeInseconds) {
 	
@@ -25656,7 +25674,7 @@
 	        var _this2 = this;
 	
 	        console.log('Rendering in CountDown parent component');
-	        debugger;
+	
 	        //destructering
 	        var _state = this.state,
 	            count = _state.count,
@@ -25664,7 +25682,7 @@
 	
 	
 	        var renderControlArea = function renderControlArea() {
-	            debugger;
+	
 	            if (countdownStatus !== 'stopped') {
 	                return React.createElement(Controls, { countdownStatus: countdownStatus, onStatusChange: _this2.handleStatusChange });
 	            } else {
@@ -25804,6 +25822,11 @@
 	            _this.props.onStatusChange(newStatus);
 	        };
 	    },
+	    ////this function will get called anytime it component props change.
+	    //it will capture prop changes.Look at weather.jsx ,where the url changes and we can capture the new props
+	    //componentWillReceiveProps:function(newProps){
+	    //       console.log('component will Receive Props',newProps.countdownStatus);
+	    //},
 	    render: function render() {
 	        var _this2 = this;
 	

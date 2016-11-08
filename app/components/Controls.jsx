@@ -17,6 +17,11 @@ var Controls = React.createClass({
 
 
        },
+       ////this function will get called anytime it component props change.
+       //it will capture prop changes.Look at weather.jsx ,where the url changes and we can capture the new props
+       //componentWillReceiveProps:function(newProps){
+       //       console.log('component will Receive Props',newProps.countdownStatus);
+       //},
        render:function(){
           console.log('Rendering in Child Controls');
           var {countdownStatus} = this.props;

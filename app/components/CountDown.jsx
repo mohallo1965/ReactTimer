@@ -17,13 +17,20 @@ var CountDown = React.createClass({
     
     startTimer:function(){
         this.timer = setInterval(() => {
-            debugger;
+           
             var newCount = this.state.count -1 ;
             this.setState({
                 count:newCount >= 0 ? newCount : 0
             });
 
+            //when it get to 0 the CountDown form will be shown again.
+            if(newCount == 0){
+                this.setState({countdownStatus:'stopped'})
+            }
+
         },1000);
+
+        
     },
     componentDidUpdate:function(prevProps,prevState){
        console.log('Component did render and there was a state or prop change');
@@ -40,6 +47,21 @@ var CountDown = React.createClass({
                 break;
            }
        }
+    },
+
+    componentWillUpdate:function(nexProps,nextState){
+
+    },
+    componentWillUnmount:function(){
+           console.log('component did unmount');
+           clearInterval(this.timer);
+           this.timer = undefined;
+    },
+    componentWillMount:function(){
+        console.log('Component will Mount')
+    },
+    componentDidMount:function(){
+        console.log('Component Did mount');
     },
     handleSetCountdown:function (timeInseconds){
         
@@ -62,12 +84,12 @@ var CountDown = React.createClass({
     render:function(){
 
         console.log('Rendering in CountDown parent component');
-        debugger;
+        
         //destructering
         var {count,countdownStatus} = this.state;
 
         var renderControlArea = () =>{
-            debugger;
+            
             if(countdownStatus !== 'stopped'){
                 return  <Controls  countdownStatus={countdownStatus} onStatusChange={this.handleStatusChange} />
             }else{
