@@ -44,7 +44,66 @@ describe('CountDown ',() => {
                  done();
              },1003)
 
-         });   
+         });  
+
+         it('should pause countdown on started status', (done) =>{
+             var countdown = TestUtils.renderIntoDocument(<CountDown/>);
+             console.log('Created component');
+             countdown.handleSetCountdown(3);
+             console.log('Set The timer');
+
+             countdown.handleStatusChange('started');
+             console.log('changed the status to started');
+
+             setTimeout( () => {
+                 console.log('SetTimeout running with tests');
+                 expect(countdown.state.count).toBe(2);
+                 expect(countdown.state.countdownStatus).toBe('started');
+                 done();
+             },1001)
+
+         });
+
+         it('should stop countdown on stopped status', (done) =>{
+             var countdown = TestUtils.renderIntoDocument(<CountDown/>);
+             console.log('Created component');
+             countdown.handleSetCountdown(7);
+             console.log('Set The timer');
+
+             countdown.handleStatusChange('started');
+             console.log('changed the status to started');
+
+             setTimeout( () => {
+                 countdown.handleStatusChange('stopped');
+
+                 console.log('SetTimeout running with tests');
+                 expect(countdown.state.count).toBe(0);//when stopped count is set to zero .
+                
+                 expect(countdown.state.countdownStatus).toBe('stopped');
+                 done();
+             },1002)
+
+         });
+
+        it('timer should not be running', (done) =>{
+             var countdown = TestUtils.renderIntoDocument(<CountDown/>);
+             console.log('Checking Timer Created component');
+             countdown.handleSetCountdown(7);
+             console.log('Set The timer');
+
+             countdown.handleStatusChange('stopped');
+             console.log('changed the status to started');
+
+             setTimeout( () => {
+                 
+                 console.log('SetTimeout running with tests');
+                 expect(countdown.state.count).toBe(0);//when stopped count is set to zero .
+                
+                 expect(countdown.state.countdownStatus).toBe('stopped');
+                 done();
+             },1002)
+
+         }); 
     });
 
 });

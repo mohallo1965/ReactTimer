@@ -25613,6 +25613,7 @@
 	    startTimer: function startTimer() {
 	        var _this = this;
 	
+	        console.log('*** TIMER IS RUNNING ******');
 	        this.timer = setInterval(function () {
 	
 	            var newCount = _this.state.count - 1;
@@ -25693,6 +25694,11 @@
 	        return React.createElement(
 	            'div',
 	            null,
+	            React.createElement(
+	                'h1',
+	                { className: 'page-title' },
+	                'Countdown App'
+	            ),
 	            React.createElement(Clock, { totalSeconds: count }),
 	            renderControlArea()
 	        );
@@ -26272,7 +26278,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".top-bar, .top-bar ul {\n  background: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.5rem;\n  font-weight: 300; }\n\n.controls {\n  display: flex;\n  justify-content: center; }\n  .controls .button {\n    padding: .75rem 3rem; }\n  .controls .button:first-child {\n    margin-right: 1.5rem; }\n", ""]);
+	exports.push([module.id, ".top-bar, .top-bar ul {\n  background: #333333; }\n\n.top-bar .menu-text {\n  color: white; }\n\n.top-bar .menu > .menu-text > a {\n  display: inline;\n  padding: 0; }\n\n.top-bar .active-link {\n  font-weight: bold; }\n\n.clock {\n  align-items: center;\n  background-color: #B5D0E2;\n  border: 2px solid #2099E8;\n  border-radius: 50%;\n  display: flex;\n  height: 14rem;\n  justify-content: center;\n  margin: 4rem auto;\n  width: 14rem; }\n\n.clock-text {\n  color: white;\n  font-size: 2.5rem;\n  font-weight: 300; }\n\n.controls {\n  display: flex;\n  justify-content: center; }\n  .controls .button {\n    padding: .75rem 3rem; }\n  .controls .button:first-child {\n    margin-right: 1.5rem; }\n\n.page-title {\n  margin: 2rem 0;\n  text-align: center; }\n", ""]);
 	
 	// exports
 
