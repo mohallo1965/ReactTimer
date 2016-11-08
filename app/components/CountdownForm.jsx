@@ -9,11 +9,11 @@ var CountDownForm = React.createClass({
 
             if(strSeconds.match(/^[0-9]*$/) ){
                  this.refs.seconds.value;
-                 this.props.onSetCountdown(parseInt(strSeconds,10));
+                 this.props.onSetCountdown(parseInt(strSeconds,10));  //call to onSetCountdown function in CountDown
             }
       },
       render:function(){
-
+           console.log('Rendering in CountDownForm Child component')
            return(
 
                <div>
