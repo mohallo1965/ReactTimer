@@ -21,7 +21,7 @@ var Timer = require('Timer');
 
 
 //Load foundation with loaders style and css.
-require('style!css!foundation-sites/dist/foundation.min.css');
+//require('style!css!foundation-sites/dist/foundation.min.css');
 //fire up foundation
 $(document).foundation();
 
