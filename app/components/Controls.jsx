@@ -23,13 +23,13 @@ var Controls = React.createClass({
        //       console.log('component will Receive Props',newProps.countdownStatus);
        //},
        render:function(){
-          console.log('Rendering in Child Controls');
+          //console.log('Rendering in Child Controls');
           var {countdownStatus} = this.props;
           
           var renderStartStopButton = () => {
               if(countdownStatus  === 'started'){
                   return <button className="button secondary" onClick={this.onStatusChange('paused')}>Pause</button>
-              }else if (countdownStatus === 'paused'){
+              }else{
                   return <button className="button primary" onClick={this.onStatusChange('started')}>Start</button>
               }
           };

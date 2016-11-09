@@ -25836,7 +25836,7 @@
 	    render: function render() {
 	        var _this2 = this;
 	
-	        console.log('Rendering in Child Controls');
+	        //console.log('Rendering in Child Controls');
 	        var countdownStatus = this.props.countdownStatus;
 	
 	
@@ -25847,7 +25847,7 @@
 	                    { className: 'button secondary', onClick: _this2.onStatusChange('paused') },
 	                    'Pause'
 	                );
-	            } else if (countdownStatus === 'paused') {
+	            } else {
 	                return React.createElement(
 	                    'button',
 	                    { className: 'button primary', onClick: _this2.onStatusChange('started') },
@@ -25878,17 +25878,94 @@
 	'use strict';
 	
 	var React = __webpack_require__(8);
+	var Clock = __webpack_require__(232);
+	var CountdownForm = __webpack_require__(233);
+	var Controls = __webpack_require__(234);
 	
 	var Timer = React.createClass({
 	    displayName: 'Timer',
 	
 	
+	    getInitialState: function getInitialState() {
+	        return {
+	            count: 0,
+	            countdownStatus: 'paused'
+	
+	        };
+	    },
+	    startTimer: function startTimer(count) {
+	        var _this = this;
+	
+	        console.log("Starting the Timer....");
+	
+	        this.timer = setInterval(function () {
+	
+	            var newCount = _this.state.count + 1;
+	
+	            _this.setState({
+	                count: newCount
+	            });
+	        }, 1000);
+	    },
+	    componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	
+	        if (this.state.countdownStatus != prevState.countdownStatus) {
+	            switch (this.state.countdownStatus) {
+	
+	                case 'started':
+	                    this.startTimer();
+	                    break;
+	                case 'stopped':
+	                    this.setState({ count: 0 });
+	                case 'paused':
+	                    clearInterval(this.timer);
+	                    this.timer = undefined;
+	                    break;
+	
+	            }
+	        }
+	    },
+	
+	    handleSetCountdown: function handleSetCountdown(seconds) {
+	
+	        console.log('handleSetCountdown in Timer.jsx:' + seconds);
+	
+	        this.setState({
+	
+	            count: seconds,
+	            countdownStatus: 'started'
+	
+	        });
+	    },
+	    handleStatusChange: function handleStatusChange(status) {
+	        console.log('Status change in Timer.jsx' + status);
+	
+	        this.setState({
+	
+	            countdownStatus: status
+	
+	        });
+	    },
+	    //Kill the timer or else get errors about trying to update an unmounted component
+	    componentWillUnmount: function componentWillUnmount() {
+	        console.log('component did unmount');
+	        clearInterval(this.timer);
+	        this.timer = undefined;
+	    },
 	    render: function render() {
+	
+	        //console.log('render function running in Timer.jsx');
+	
+	        var _state = this.state,
+	            count = _state.count,
+	            countdownStatus = _state.countdownStatus;
+	
 	
 	        return React.createElement(
 	            'div',
 	            null,
-	            'Timer Component'
+	            React.createElement(Clock, { totalSeconds: count }),
+	            React.createElement(Controls, { countdownStatus: countdownStatus, onStatusChange: this.handleStatusChange })
 	        );
 	    }
 	});
